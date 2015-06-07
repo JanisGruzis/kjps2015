@@ -12,5 +12,10 @@ Mēs izmantosim sekojošas tehnoloģijas:
 Katram nometnes dalībniekam ir izvēle veidot mobīlo lietotni vienā no trīs veidiem:
 
 1. No sākuma līdz beigām veidot programmu ar Cordova rīku un augstāk minētajām tehnoloģijām. Mērķis ir iemācīties uz parasta datora uzinstalēt Cordova vidi un rīkus programmēšanai, kā arī ar KineticJS bibliotēku izstrādāt spēli telefonam.
+  * Vides uzstādīšanas instrukcijas var skatīt [šeit](/doc/install.md).
+  * Cordova projekta izmantošanas instrukcijas var skatīt [šeit](/doc/cordova.md).
+  * KineticJS izmantošanas instrukcijas var skatīt [šeit](/doc/kinetic.md).
+  * Citas tehnoloģijas un specifiskas nianses šajā sarakstā minētajām tehnoloģijām var meklēt saitēs izmantoto tehnoloģiju sarakstā.
 1. Var izmantot šajā repozitorijā mūsu speciāli sagatavotu programmēšanas bibliotēku, lai vienkārši veidot spēles. Programmēšanas vide būs sagatavota jau iepriekš un katrs varēs sākt programmēšanu uzreiz.
+  * 
 1. Ja kāds zina jau par citām mobilo lietotņu veidošanas tehnoloģijām un zina to pielietošanas veidus, tad ir iespēja katram pašam patstāvīgi un varbūt ar nelielu mūsu palīdzību veidot savu mobilo lietotni (ne obligāti spēli). Jābrīdina, ka ir ieteicams justies kaut cik droši ar tehnoloģiju vai to spēju robežās apgūt līdz nometnei, jo skaidrošana pamatā notiks augstāk minēto tehnoloģiju ietvarā.
