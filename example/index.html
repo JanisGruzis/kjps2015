@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simry</title>
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
+		<link rel="stylesheet" href="../simry/style.css"/>
+		<script src="../simry/fabric.js"></script>
+		<script src="../simry/script.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<script>
+
+			/**
+			 * Šī funkcija izpildās katru 1 sekundi.
+			 * @param  {Object} c Kanvas objekts. Tiek izmantots zīmēšanai.
+			 */
+			function tick(c)
+			{
+				c.setBackgroundColor('gray');
+				//c.setBackgroundImage('bg.jpg'); //Kļūda metās
+				c.setColor('red');
+				c.circle(10, 10, 10);
+				c.ellipse(60, 10, 10, 30);
+				c.image('apple.jpg', 800, 10);
+				c.setColor('blue');
+				c.rectangle(100, 10, 10, 30);
+				c.setColor('green');
+				c.text('Hello world', 150, 10); //Spam konsolē
+				c.triangle(350, 10, 390, 10, 370, 50);
+				c.polyline([{x: 400, y: 10}, {x: 450, y: 10}, {x: 500, y: 60}], 5);
+				c.line(510, 10, 600, 10, 20);
+			};
+
+			(function(){
+				new Simry('canvas', tick);
+			})();
+		</script>
+	</body>
+</html>

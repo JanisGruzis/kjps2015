@@ -1,0 +1,10 @@
+@-ms-viewport{
+  width: device-width;
+  height: device-height;
+  user-scalable: no;
+}
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+}
