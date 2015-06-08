@@ -27,7 +27,6 @@
 					var randomX = Math.random() * (c.getWidth() - 80);
 					var randomY = Math.random() * (c.getHeight() - 80);
 					c.image('alien.png', randomX, randomY, null, function(alien){
-						c.lock(alien);
 						aliens.push(alien);
 					});
 					lastSpawn = now.getTime();

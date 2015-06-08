@@ -351,20 +351,6 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	};
 
 	/**
-	 * Padara elementu nekustināmu.
-	 * @param  {fabric.Object} obj Elementa instance.
-	 * @return {Simry}
-	 */
-	this.lock = function(obj){
-		obj.setOptions({
-			lockMovementX: false,
-			lockMovementY: false
-		});
-
-		return self;
-	};
-
-	/**
 	 * Uzstādīt noklusētās opcijas.
 	 * @param  {Object} options Opcijas.
 	 * @return {Object}        	Opcijas.
