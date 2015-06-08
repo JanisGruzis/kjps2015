@@ -11,29 +11,83 @@
 		<canvas id="canvas"></canvas>
 		<script>
 
+			var ship = null;
+			var aliens = [];
+			var lastSpawn = new Date().getTime();
+
 			/**
 			 * Šī funkcija izpildās katru 1 sekundi.
 			 * @param  {Object} c Kanvas objekts. Tiek izmantots zīmēšanai.
 			 */
-			function tick(c)
-			{
-				c.setBackgroundColor('gray');
-				//c.setBackgroundImage('bg.jpg'); //Kļūda metās
-				c.setColor('red');
-				c.circle(10, 10, 10);
-				c.ellipse(60, 10, 10, 30);
-				c.image('apple.jpg', 800, 10);
-				c.setColor('blue');
-				c.rectangle(100, 10, 10, 30);
-				c.setColor('green');
-				c.text('Hello world', 150, 10); //Spam konsolē
-				c.triangle(350, 10, 390, 10, 370, 50);
-				c.polyline([{x: 400, y: 10}, {x: 450, y: 10}, {x: 500, y: 60}], 5);
-				c.line(510, 10, 600, 10, 20);
+			function tick(c){
+				var now = new Date();
+
+				if (now.getTime() - lastSpawn > 2000)
+				{
+					var randomX = Math.random() * (c.getWidth() - 80);
+					var randomY = Math.random() * (c.getHeight() - 80);
+					c.image('alien.png', randomX, randomY, null, function(alien){
+						c.lock(alien);
+						aliens.push(alien);
+					});
+					lastSpawn = now.getTime();
+				}
+
+				for (var i in aliens)
+				{
+					var alien = aliens[i];
+					alien.setOptions({
+						left: alien.getLeft() + (Math.random() - 0.5) * 50,
+						top: alien.getTop() + (Math.random() - 0.5) * 50
+					});
+				}
+
+				if (isGameOver(c)){
+					gameOver(c);
+				}
+			};
+
+			function isGameOver(c){
+				for (var i in aliens){
+					var alien = aliens[i];
+					if (c.intersects(alien, ship)){
+						return true;
+					}
+				}
+
+				return false;
+			};
+
+			function gameOver(c){
+				c.stop();
+				c.setColor('yellow');
+
+				var text = c.text('Game over. Score: ' + aliens.length,
+					c.getWidth() / 2,
+					c.getHeight() / 2,
+					{
+						fontWeight: 'bold',
+						textBackgroundColor: 'green',
+						padding: 10
+					});
+
+				text.setOptions({
+					left: text.getLeft() - text.getWidth() / 2,
+					top: text.getTop() - text.getHeight() / 2
+				});
 			};
 
 			(function(){
-				new Simry('canvas', tick);
+				var c = new Simry('canvas', tick);
+				c.setBackgroundImage('bg.png');
+				c.image('ship.png', c.getWidth() / 2 - 50, 100, null, function(img){
+					ship = img;
+					c.onMoving(img, function(){
+						if (isGameOver(c)){
+							gameOver(c);
+						}
+					});
+				});
 			})();
 		</script>
 	</body>

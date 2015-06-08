@@ -8,12 +8,12 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 	var self = this;
 
-	tickPeriod = parseInt(tickPeriod) <= 0 ?
+	tickPeriod = !tickPeriod || parseInt(tickPeriod) <= 0 ?
 		1000 :
 		parseInt(tickPeriod);
 
 	if (typeof(tickCallback) === 'function'){
-		setInterval(function(){
+		self.interval = setInterval(function(){
 			tickCallback(self);
 			self.canvas.remove().renderAll();
 		}, tickPeriod);
@@ -96,10 +96,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {fabric.Circle}  Figūras objekts.
 	 */
 	this.circle = function(left, top, radius, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+		options = defaultOptions(options);
 		options.left = left;
 		options.top = top;
 		options.radius = radius;
@@ -124,10 +121,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {fabric.Ellipse}  Figūras objekts.
 	 */
 	this.ellipse = function(left, top, rx, ry, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+		options = defaultOptions(options);
 		options.left = left;
 		options.top = top;
 		options.rx = rx;
@@ -145,26 +139,28 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 	/**
 	 * Zīmēt attēlu.
-	 * @param  {String} url     Attēla taka.
-	 * @param  {Number} left    Attālums no kreisās malas.
-	 * @param  {Number} top     Attālums no augšas.
-	 * @param  {Object} options Figūras opcijas.
-	 * @return {fabric.Image}   Figūras objekts.
+	 * @param  {String} url     	Attēla taka.
+	 * @param  {Number} left    	Attālums no kreisās malas.
+	 * @param  {Number} top     	Attālums no augšas.
+	 * @param  {Object} options 	Figūras opcijas.
+	 * @param  {Function} callback 	Kad attēls ir ielādēts, tiek izsaukta šī funkcija un iedota attēla instance.
+	 * @return {Simry}
 	 */
-	this.image = function(url, left, top, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+	this.image = function(url, left, top, options, callback){
+		options = defaultOptions(options);
 		var image = new fabric.Image.fromURL(url, function(img){
 			options.left = left;
 			options.top = top;
 			img.setOptions(options);
 
 			self.canvas.add(img);
+
+			if (typeof(callback) === 'function'){
+				callback(img);
+			}
 		});
 
-		return image;
+		return self;
 	};
 
 	/**
@@ -187,10 +183,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {fabric.Rect}    Figūras objekts.
 	 */
 	this.rectangle = function(left, top, width, height, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+		options = defaultOptions(options);
 		options.left = left;
 		options.top = top;
 		options.width = width;
@@ -211,13 +204,11 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @param  {String} text 	Teksts.
 	 * @param  {Number} left    Attālums no kreisās malas.
 	 * @param  {Number} top     Attālums no augšas.
+	 * @param  {Object} options Teksta opcijas.
 	 * @return {fabric.Text}    Teksta objekts.
 	 */
-	this.text = function(text, left, top){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+	this.text = function(text, left, top, options){
+		options = defaultOptions(options);
 		options.left = left;
 		options.top = top;
 
@@ -238,9 +229,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {fabric.Polygon} Figūras objekts.
 	 */
 	this.polygon = function(points, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
+		options = defaultOptions(options);
 
 		if (self.color){
 			options.fill = self.color;
@@ -281,10 +270,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {fabric.Polyline}	Lauztās līnijas objekts.
 	 */
 	this.polyline = function(points, strokeWidth, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+		options = defaultOptions(options);
 		options.strokeWidth = strokeWidth ? strokeWidth : 1;
 
 		if (self.color){
@@ -309,10 +295,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {fabric.Line}		Līnijas objekts.
 	 */
 	this.line = function(x1, y1, x2, y2, strokeWidth, options){
-		if (typeof(options) !== 'object'){
-			options = {};
-		}
-
+		options = defaultOptions(options);
 		options.strokeWidth = strokeWidth ? strokeWidth : 1;
 
 		if (self.color){
@@ -325,6 +308,76 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		self.canvas.add(line);
 
 		return line;
+	};
+
+	/**
+	 * Dabūt kanvas platumu.
+	 * @return {Number} Kanvas platums.
+	 */
+	this.getWidth = function(){
+		return self.canvas.getWidth();
+	};
+
+	/**
+	 * Dabūt kanvas augstumu.
+	 * @return {Number} Kanvas augstums.
+	 */
+	this.getHeight = function(){
+		return self.canvas.getHeight();
+	};
+
+	/**
+	 * Objekta kustināšanas notikums
+	 * @param  {fabric.Object} obj 	Elements, kuram gaidīt notikumu.
+	 * @param  {Function} callback 	Funkcija, kuru izsauc uz notikumu.
+	 * @return {Simry}
+	 */
+	this.onMoving = function(obj, callback){
+		obj.on('object:moving', callback);
+		return self;
+	};
+
+	/**
+	 * Apstrādināt galveno ciklu.
+	 * @return {Simry}
+	 */
+	this.stop = function(){
+		if (self.interval){
+			clearInterval(self.interval);
+			delete self.interval;
+		}
+
+		return self;
+	};
+
+	/**
+	 * Padara elementu nekustināmu.
+	 * @param  {fabric.Object} obj Elementa instance.
+	 * @return {Simry}
+	 */
+	this.lock = function(obj){
+		obj.setOptions({
+			lockMovementX: false,
+			lockMovementY: false
+		});
+
+		return self;
+	};
+
+	/**
+	 * Uzstādīt noklusētās opcijas.
+	 * @param  {Object} options Opcijas.
+	 * @return {Object}        	Opcijas.
+	 */
+	var defaultOptions = function(options){
+		options = typeof(options) !== 'object' || options === null ?
+			{} :
+			options;
+
+		options.hasControls = false;
+		options.hasBorders = false;
+
+		return options;
 	};
 
 	initialize();
