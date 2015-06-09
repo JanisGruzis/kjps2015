@@ -25,6 +25,7 @@ Android SDK
 1. Spiežam **Next** un **Install** pogas. Ja JDK ir uzinstalēts veiksmīgi iepriekšējā solī, tad nekādām problēmām nevajadzētu rasties procesā. Pēdējā solī vajag atļaut sāknēties SDK jeb nenoņemt ķeksi.
 1. Ja ir nepieciešams specifiskai ierīcei kompilēt programmu, ir jānoskaidro ierīces OS versija un jāizvēlas SDK API versija.
 1. Un beigās jānospiež **Install X packages**. Kad instalācija beidzās, logu var vērt ciet.
+1. Lai Cordova projektu varētu testēt, ir jāizveido virtuālā mašīna. To var izdarīt atrodot Android SDK instalāciju un sāknējot failu **AVD Manager.exe**
 
 Node.JS
 ---------------
