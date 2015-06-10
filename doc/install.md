@@ -27,6 +27,9 @@ Android SDK
 1. Un beigās jānospiež **Install X packages**. Kad instalācija beidzās, logu var vērt ciet.
 1. Lai Cordova projektu varētu testēt, ir jāizveido virtuālā mašīna. To var izdarīt atrodot Android SDK instalāciju un sāknējot failu **AVD Manager.exe**
 
+Android virtuālā mašīna (AVD)
+-------------------------------
+
 Node.JS
 ---------------
 
