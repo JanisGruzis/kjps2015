@@ -309,6 +309,34 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 		return line;
 	};
+	
+	/**
+	 * Atļaut kustināt figūru.
+	 * @param {fabric.Object} obj Kustināmais objekts.
+	 * @return {Simry}
+	 */
+	this.allowMoving = function(obj){
+		obj.setOptions({
+			lockMovementX: false,
+			lockMovementY: false
+		});
+		return self;
+	};
+	
+	/**
+	 * Pārvietot figūru.
+	 * @param {fabric.Object} obj Pārvietojamais objekts.
+	 * @param {Number} xDelta X ass pārvietojuma vektors.
+	 * @param {Number} yDelta Y ass pārvietojuma vektors.
+	 * @return {Simry}
+	 */
+	this.move = function(obj, xDelta, yDelta){
+		obj.setOptions({
+			left: obj.getLeft() + xDelta,
+			top: obj.getTop() + yDelta
+		});
+		return self;
+	};
 
 	/**
 	 * Dabūt kanvas platumu.
@@ -362,6 +390,8 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 		options.hasControls = false;
 		options.hasBorders = false;
+		options.lockMovementX = true;
+		options.lockMovementY = true
 
 		return options;
 	};
