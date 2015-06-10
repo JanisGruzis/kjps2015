@@ -44,4 +44,4 @@ Cordova ir lietotne Android un citu platformu projektu veidošanai. Mēs pamatā
 
 1. Atver **Node.js command prompt**.
 1. Izpildi komandu ```npm install -g cordova```.
-1. Pārbaudi, ka komanda uzinstalēja cordova. Izpildi komandu ```cordova --version```. Ja komanda izvada versiju nevis kādū kļūdu par trūkstošu komandu, tad cordova ir veiksmīgi uzinstalēts.
+1. Pārbaudi, ka komanda uzinstalēja cordova. Izpildi komandu ```cordova --version```. Ja komanda izvada versiju nevis kādu kļūdu par trūkstošu komandu, tad cordova ir veiksmīgi uzinstalēts.
