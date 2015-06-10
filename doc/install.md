@@ -42,6 +42,6 @@ Cordova
 
 Cordova ir lietotne Android un citu platformu projektu veidošanai. Mēs pamatā apskatīsim tikai Android versiju, bet uzinstalējot Windows Moblie SDK u.c. ir iespējams projektu kompilēt ar Cordova palīdzību dažādām mobilajām OS.
 
-1. Atver "Node.js command prompt".
+1. Atver **Node.js command prompt**.
 1. Izpildi komandu ```npm install -g cordova```.
 1. Pārbaudi, ka komanda uzinstalēja cordova. Izpildi komandu ```cordova --version```. Ja komanda izvada versiju nevis kādū kļūdu par trūkstošu komandu, tad cordova ir veiksmīgi uzinstalēts.
