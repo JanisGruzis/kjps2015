@@ -250,16 +250,24 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @param  {Number} x3      #3 punkta x koordināte.
 	 * @param  {Number} y3      #3 punkta y koordināte.
 	 * @param  {Object} options Figūras opcijas.
-	 * @return {fabric.Polygon} Figūras objekts.
+	 * @return {fabric.Triangle} Figūras objekts.
 	 */
-	this.triangle = function(x1, y1, x2, y2, x3, y3, options){
-		var points = [
-			{x: x1, y: y1},
-			{x: x2, y: y2},
-			{x: x3, y: y3}
-		];
+	this.triangle = function(left, top, width, height, options){
+		options = defaultOptions(options);
 
-		return self.polygon(points, options);
+		if (self.color){
+			options.fill = self.color;
+		}
+		
+		options.left = left;
+		options.top = top;
+		options.width = width;
+		options.height = height;
+
+		var triangle = new fabric.Triangle(options);
+		self.canvas.add(triangle);
+
+		return triangle;
 	};
 
 	/**
@@ -315,10 +323,23 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @param {fabric.Object} obj Kustināmais objekts.
 	 * @return {Simry}
 	 */
-	this.allowMoving = function(obj){
+	this.enableMoving = function(obj){
 		obj.setOptions({
 			lockMovementX: false,
 			lockMovementY: false
+		});
+		return self;
+	};
+	
+	/**
+	 * Neļaut kustināt figūru.
+	 * @param {fabric.Object} obj Nekustināmais objekts.
+	 * @return {Simry}
+	 */
+	this.disableMoving = function(obj){
+		obj.setOptions({
+			lockMovementX: true,
+			lockMovementY: true
 		});
 		return self;
 	};
@@ -335,6 +356,8 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 			left: obj.getLeft() + xDelta,
 			top: obj.getTop() + yDelta
 		});
+		obj.setCoords();
+		
 		return self;
 	};
 
@@ -361,7 +384,10 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {Simry}
 	 */
 	this.onMoving = function(obj, callback){
-		obj.on('object:moving', callback);
+		obj.on('moving', function(e){
+			obj.setCoords();
+			callback(e);
+		});
 		return self;
 	};
 

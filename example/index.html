@@ -17,7 +17,7 @@
 
 			/**
 			 * Šī funkcija izpildās katru 1 sekundi.
-			 * @param  {Object} c Kanvas objekts. Tiek izmantots zīmēšanai.
+			 * @param {Object} c
 			 */
 			function tick(c){
 				var now = new Date();
@@ -26,6 +26,7 @@
 				{
 					var randomX = Math.random() * (c.getWidth() - 80);
 					var randomY = Math.random() * (c.getHeight() - 80);
+					
 					c.image('alien.png', randomX, randomY, null, function(alien){
 						aliens.push(alien);
 					});
@@ -35,16 +36,35 @@
 				for (var i in aliens)
 				{
 					var alien = aliens[i];
-					var xDelta = (Math.random() - 0.5) * 50;
-					var yDelta = (Math.random() - 0.5) * 50;
-					c.move(alien, xDelta, yDelta);
+					var vectorX = getMoveVector(alien.getLeft(), ship.getLeft());
+					var vectorY = getMoveVector(alien.getTop(), ship.getTop());
+					c.move(alien, vectorX, vectorY);
 				}
 
 				if (isGameOver(c)){
 					gameOver(c);
 				}
 			};
+			
+			/**
+			 * Iegūst par cik uz konkrētas ass pārvietot citplanētieti.
+			 * @param {Number} cord1 Citplanētieša koordināte uz ass.
+			 * @param {Number} cord2 Kuģa koordināte uz ass.
+			 * @return {Number} Pārvietošanas vektora lielums.
+			 */
+			function getMoveVector(cord1, cord2){
+				var maxSpeed = 5;
+				var rnd = Math.random();
+				var way = (cord2 >= cord1 ? 1 : -1);
+				
+				return rnd * maxSpeed * way;
+			}
 
+			/**
+			 * Pārbauda, vai spēles beigu nosacījums izpildās.
+			 * @param {Simry} c
+			 * @return {Boolean}
+			 */
 			function isGameOver(c){
 				for (var i in aliens){
 					var alien = aliens[i];
@@ -56,8 +76,13 @@
 				return false;
 			};
 
+			/**
+			 * Veic darbības, ja spēle ir beigusies.
+			 * @param {Simry} c
+			 */
 			function gameOver(c){
 				c.stop();
+				c.disableMoving(ship);
 				c.setColor('yellow');
 
 				var text = c.text('Game over. Score: ' + aliens.length,
@@ -76,12 +101,12 @@
 			};
 
 			(function(){
-				var c = new Simry('canvas', tick);
+				var c = new Simry('canvas', tick, 100);
 				c.setBackgroundImage('bg.png');
 				c.image('ship.png', c.getWidth() / 2 - 50, 100, null, function(img){
 					ship = img;
-					c.allowMoving(ship);
-					c.onMoving(img, function(){
+					c.enableMoving(ship);
+					c.onMoving(ship, function(e){
 						if (isGameOver(c)){
 							gameOver(c);
 						}
