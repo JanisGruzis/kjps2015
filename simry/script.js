@@ -12,13 +12,6 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		1000 :
 		parseInt(tickPeriod);
 
-	if (typeof(tickCallback) === 'function'){
-		self.interval = setInterval(function(){
-			tickCallback(self);
-			self.canvas.remove().renderAll();
-		}, tickPeriod);
-	}
-
 	/**
 	 * On resize set canvas width and height to 100%.
 	 */
@@ -35,6 +28,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * Inicializē kanvas zīmēšanai.
 	 */
 	var initialize = function(){
+		self.start();
 		self.canvas = new fabric.Canvas(canvasId);
 		self.canvas.selectable = false;
 		window.onresize();
@@ -388,6 +382,20 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		});
 		return self;
 	};
+	
+	/**
+	 * Iedarbina galveno ciklu.
+	 * @return {Simry}
+	 */
+	this.start = function(){
+		if (typeof(tickCallback) === 'function'){
+			self.interval = setInterval(function(){
+				tickCallback(self);
+				self.canvas.remove().renderAll();
+			}, tickPeriod);
+		}
+		return self;
+	};
 
 	/**
 	 * Apstrādināt galveno ciklu.
@@ -399,6 +407,16 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 			delete self.interval;
 		}
 
+		return self;
+	};
+	
+	/**
+	 * Izdzēst objektu.
+	 * @param {fabric.Object} Dzēšamais objekts.
+	 * @return {Simry}
+	 */
+	this.remove = function(obj){
+		self.canvas.remove(obj);
 		return self;
 	};
 

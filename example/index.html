@@ -96,7 +96,7 @@
 
 				c.move(text, -text.getWidth() / 2, -text.getHeight() / 2);
 				
-				var text = c.text('Score: ' + aliens.length,
+				var score = c.text('Score: ' + aliens.length,
 					c.getWidth() / 2,
 					c.getHeight() / 2 + text.getHeight(),
 					{
@@ -105,7 +105,7 @@
 						padding: 10
 					});
 					
-				c.move(text, -text.getWidth() / 2, -text.getHeight() / 2);
+				c.move(score, -score.getWidth() / 2, -score.getHeight() / 2);
 			};
 
 			(function(){
