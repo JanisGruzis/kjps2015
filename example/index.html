@@ -44,7 +44,7 @@
 				if (isGameOver(c)){
 					gameOver(c);
 				}
-			};
+			}
 			
 			/**
 			 * Iegūst par cik uz konkrētas ass pārvietot citplanētieti.
@@ -74,7 +74,7 @@
 				}
 
 				return false;
-			};
+			}
 
 			/**
 			 * Veic darbības, ja spēle ir beigusies.
@@ -98,7 +98,7 @@
 					left: text.getLeft() - text.getWidth() / 2,
 					top: text.getTop() - text.getHeight() / 2
 				});
-			};
+			}
 
 			(function(){
 				var c = new Simry('canvas', tick, 100);
@@ -106,7 +106,7 @@
 				c.image('ship.png', c.getWidth() / 2 - 50, 100, null, function(img){
 					ship = img;
 					c.enableMoving(ship);
-					c.onMoving(ship, function(e){
+					c.onMoving(ship, function(){
 						if (isGameOver(c)){
 							gameOver(c);
 						}
