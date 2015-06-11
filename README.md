@@ -11,10 +11,9 @@ Mēs izmantosim sekojošas tehnoloģijas:
 
 Katram nometnes dalībniekam ir izvēle veidot mobīlo lietotni vienā no trīs veidiem:
 
-1. No sākuma līdz beigām veidot programmu ar Cordova rīku un augstāk minētajām tehnoloģijām. Mērķis ir iemācīties uz parasta datora uzinstalēt Cordova vidi un rīkus programmēšanai, kā arī ar KineticJS bibliotēku izstrādāt spēli telefonam.
+1. No sākuma līdz beigām veidot programmu ar Cordova rīku un augstāk minētajām tehnoloģijām. Mērķis ir iemācīties uz parasta datora uzinstalēt Cordova vidi un rīkus programmēšanai, kā arī ar Fabric.js bibliotēku izstrādāt spēli telefonam.
   * Vides uzstādīšanas instrukcijas var skatīt [šeit](/doc/install.md).
   * Cordova projekta izmantošanas instrukcijas var skatīt [šeit](/doc/cordova.md).
-  * Fabric.js izmantošanas instrukcijas var skatīt [šeit](/doc/fabric.md).
   * Citas tehnoloģijas un specifiskas nianses šajā sarakstā minētajām tehnoloģijām var meklēt saitēs izmantoto tehnoloģiju sarakstā.
 1. Var izmantot šajā repozitorijā mūsu speciāli sagatavotu programmēšanas bibliotēku **Simry**, lai vienkārši veidot spēles. Programmēšanas vide būs sagatavota jau iepriekš un katrs varēs sākt programmēšanu uzreiz.
   * Par programmēšanas vidi var vairāk lasīt [šeit](/doc/simry.md).
