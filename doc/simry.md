@@ -37,6 +37,58 @@ var y = simry.getHeight() / 2;
 simry.ellipse(x, y, 50, 100); //Ekrāna centrā izveidojas ellipse.
 ```
 
+##Trīsstūris - `simry.triangle(left, top, width, height, options)`
+* _left_ - attālums no kreisās malas
+* _top_ - attālums no augšas
+* _width_ - trīsstūra pamatnes platums
+* _height_ - trīsstūra augstums
+* _options_ - figūras opcijas
+
+###Piemērs
+```javascript
+var x = simry.getWidth() / 2;
+var y = simry.getHeight() / 2;
+simry.triangle(x, y, 50, 50);
+```
+
+##Četrsturis - `simry.rectangle(left, top, width, height, options)`
+* _left_ - attālums no kreisās malas
+* _top_ - attālums no augšas
+* _width_ - attālums no augšas
+* _height_ - attālums no augšas
+* _options_ - figūras opcijas
+
+###Piemērs
+```javascript
+var x = simry.getWidth() / 2;
+var y = simry.getHeight() / 2;
+simry.rectangle(x, y, 50, 50); //Ekrāna centrā izveidojas kvadrāts.
+```
+
+##Daudzstūris - `simry.polygon(points, options)`
+* _points_ - masīvs ar punktiem
+* _options_ - figūras opcijas
+
+Gadījumā ja tev niez pēc sarežģītākas figūras, bet negribas lietot bildes.
+Attālumu no kreisās malas un augšas padod opcijās.
+
+###Piemērs
+```javascript
+var points = [
+    {x:10,y:10},
+    {x:15,y:15},
+    {x:30,y:15},
+    {x:40,y:10},
+    {x:30,y:0},
+    {x:-10,y:-10}
+];
+simry.polygon(points, {
+   fill: 'blue',  //Aizpilda daudzstūri ar zilo krāsu
+   left: 150, 
+   top: 150
+});
+```
+
 ##Attēls - `simry.image(url, left, top, options, callback)`
 * _url_ - interneta vai lokāls attēls
 * _left_ - attālums no kreisās malas
@@ -56,18 +108,4 @@ var imageLocation = 'ship.png'; //Kuģa attēla atrašanās vieta. Pieņemsim, k
 simry.image(imageLocation, x, y, null, function(ship) {
     simry.enableMoving(ship); //Tiklīdz attēls ir ielādējies, atļauj to kustināt.
 });
-```
-
-##Četrsturis - `simry.rectangle(left, top, width, height, options)`
-* _left_ - attālums no kreisās malas
-* _top_ - attālums no augšas
-* _width_ - attālums no augšas
-* _height_ - attālums no augšas
-* _options_ - figūras opcijas
-
-###Piemērs
-```javascript
-var x = simry.getWidth() / 2;
-var y = simry.getHeight() / 2;
-simry.rectangle(x, y, 50, 50); //Ekrāna centrā izveidojas kvadrāts.
 ```
