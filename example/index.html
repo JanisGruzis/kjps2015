@@ -24,8 +24,8 @@
 
 				if (now.getTime() - lastSpawn > 2000)
 				{
-					var randomX = Math.random() * (c.getWidth() - 80);
-					var randomY = Math.random() * (c.getHeight() - 80);
+					var randomX = Math.random() * (c.getWidth() - 40);
+					var randomY = Math.random() * (c.getHeight() - 40);
 					
 					c.image('alien.png', randomX, randomY, null, function(alien){
 						aliens.push(alien);
@@ -85,7 +85,7 @@
 				c.disableMoving(ship);
 				c.setColor('yellow');
 
-				var text = c.text('Game over. Score: ' + aliens.length,
+				var text = c.text('Game over.',
 					c.getWidth() / 2,
 					c.getHeight() / 2,
 					{
@@ -93,17 +93,24 @@
 						textBackgroundColor: 'green',
 						padding: 10
 					});
-
-				text.setOptions({
-					left: text.getLeft() - text.getWidth() / 2,
-					top: text.getTop() - text.getHeight() / 2
-				});
+				c.move(text, -text.getWidth() / 2, -text.getHeight() / 2);
+				
+				var text = c.text('Score: ' + aliens.length,
+					c.getWidth() / 2,
+					c.getHeight() / 2 + text.getHeight(),
+					{
+						fontWeight: 'bold',
+						textBackgroundColor: 'green',
+						padding: 10
+					});
+					
+				c.move(text, -text.getWidth() / 2, -text.getHeight() / 2);
 			}
 
 			(function(){
 				var c = new Simry('canvas', tick, 100);
 				c.setBackgroundImage('bg.png');
-				c.image('ship.png', c.getWidth() / 2 - 50, 100, null, function(img){
+				c.image('ship.png', c.getWidth() / 2 - 30, 46, null, function(img){
 					ship = img;
 					c.enableMoving(ship);
 					c.onMoving(ship, function(){
