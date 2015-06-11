@@ -44,7 +44,7 @@
 				if (isGameOver(c)){
 					gameOver(c);
 				}
-			};
+			}
 			
 			/**
 			 * Iegūst par cik uz konkrētas ass pārvietot citplanētieti.
@@ -74,7 +74,7 @@
 				}
 
 				return false;
-			};
+			}
 
 			/**
 			 * Veic darbības, ja spēle ir beigusies.
@@ -93,7 +93,6 @@
 						textBackgroundColor: 'green',
 						padding: 10
 					});
-
 				c.move(text, -text.getWidth() / 2, -text.getHeight() / 2);
 				
 				var score = c.text('Score: ' + aliens.length,
@@ -114,7 +113,7 @@
 				c.image('ship.png', c.getWidth() / 2 - 30, 46, null, function(img){
 					ship = img;
 					c.enableMoving(ship);
-					c.onMoving(ship, function(e){
+					c.onMoving(ship, function(){
 						if (isGameOver(c)){
 							gameOver(c);
 						}

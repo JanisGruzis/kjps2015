@@ -134,7 +134,7 @@ simry.polyline(points, 10);
 
 Nevēlies rādīt garlaicīgas figūras, bet gan uber-high-texture attēlus? Pareizā izvēle
 
-####Piemērs
+###Piemērs
 Izveidosim ekrāna centrā kosmosa kuģi, kurš kustās!                   
 ```javascript
 var x = simry.getWidth() / 2;
@@ -143,5 +143,125 @@ var imageLocation = 'ship.png'; //Kuģa attēla atrašanās vieta. Pieņemsim, k
 
 simry.image(imageLocation, x, y, null, function(ship) {
     simry.enableMoving(ship); //Tiklīdz attēls ir ielādējies, atļauj to kustināt.
+});
+```
+
+##Teksts - `simry.text(text, left, top, options)`
+* _text_ - teksts
+* _left_ - attālums no kreisās malas
+* _top_ - attālums no augšas
+* _options_ - teksta opcijas
+
+###Piemērs
+```javascript
+var x = simry.getWidth() / 2;
+var y = simry.getHeight() / 2;
+
+simry.text('Thou shall write provide text', x, y);
+```
+
+
+#Objektu manipulācija
+##Atļaut pārvietot - `simry.enableMoving(object)`
+* _object_ - objekta mainīgais
+
+Atļauj lietotājam doto objektu pārvietot.
+
+###Piemērs
+Skatīt attēla objekta piemēru.
+
+##Aizliegt pārvietot - `simry.disableMoving(object)`
+* _object_ - objekta mainīgais
+
+Padara doto objektu nekustināmu
+
+###Piemērs
+```javascript
+simry.disableMoving(ship); //Kosmoa kuģis vairs nav kustināms.
+```
+
+##Pārvietot objektu - `simry.move(object, xDelta, yDelta)`
+* _object_ - objekta mainīgais
+* _xDelta_ - Pārvieto objektu X assī par noteiktu daudzumu
+* _yDelta_ - Pārvieto objektu Y assī par noteiktu daudzumu
+
+Pārvieto doto objektu par noteiktu daudzumu
+
+###Piemērs
+```javascript
+simry.move(ship, 100, 100); //Pārvieto kosmoa kuģi 100 kordinātes uz auģus & pa labi
+```
+
+#Vispārīgas funkcijas
+##Fona krāsa - `simry.setBackgroundColor(color)`
+* _color_ - krāsa
+
+Nomaina fona krasu.
+###Piemērs
+```javascript
+simry.setBackgroundColor('rgba(0,0,255,0.3)'); //Fona krāsa nomainas uz zilu ar 30% caurspīdīgumu
+```
+
+##Fona attēls - `simry.setBackgroundImage(image)`
+* _image_ - Attēla atrašanās vieta
+
+Nomaina fona attēlu.
+###Piemērs
+```javascript
+var image = 'bg.png';
+simry.setBackgroundColor(image);
+```
+
+##Aizsedzošais attēls - `simry.setOverlayImage(image)`
+* _image_ - Attēla atrašanās vieta
+
+Visam ekrānam priekšā uzliek attēlu.
+###Piemērs
+```javascript
+var image = 'bg.png';
+simry.setOverlayImage(image);
+```
+
+##Noklusējuma krāsa - `simry.setColor(color)`
+* _color_ - Objektu noklusējuma krāsa.
+
+Ja, izveidojot jaunu objektu, krāsa netiek norādīta, tiks izmantota šī uzstādītā
+###Piemērs
+```javascript
+simry.setColor('green'); //Uzstāda noklusējuma krāsu uz zaļu
+```
+
+##Sadursme - `simry.intersects(object1, object2)`
+* _object1_ - Pirmais objekts
+* _object2_ - Otrais objekts
+
+Pārbauda vai abi objekti sadurās.
+###Piemērs
+```javascript
+if(simry.intersects(alien, ship)) { //Tiek pārbaudīts vai objekts alien un objekts ship saduras
+    //Pārņem pasauli
+} else {
+    //Pa priekšu jaiznīcina kuģis
+}
+```
+
+##Ekrāna platums - `simry.getWidth()`
+Atgriež ekrāna platumu
+
+##Ekrāna platums - `simry.getHeight()`
+Atgriež ekrāna augstumu
+
+##Pārvietošanas notikums - `simry.onMoving(object, function)`
+* _object_ - Objekts, kurš tiks pārbaudīts
+* _function_ - funkcija, kas tiks izsaukta
+
+Pārvietojoties `object`, tiek izsaukta funkcija `function`
+###Piemērs
+Katru reizi, kad kuģis tiek pakustināts, pārbaudam, vai nenotiek sadursme ar citplanētieti.
+```javascript
+simry.onMoving(ship, function() {
+    if (isGameOver(c)) {
+        gameOver(c);
+    }
 });
 ```

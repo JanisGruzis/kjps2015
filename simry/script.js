@@ -43,6 +43,10 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		self.canvas.backgroundColor = color;
 		return self;
 	};
+	this.setBackgroundColour = function(colour) { //OP
+		return self.setBackgroundColor(colour);
+	};
+
 
 	/**
 	 * Uzlikt fonā attēlu.
@@ -54,7 +58,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 				source: image,
 				repeat: 'repeat'
 			},
-			self.canvas.renderAll.bind(canvas));
+			self.canvas.renderAll.bind(canvas)); //TODO canvas -> self.canvas? Pajautāt.
 		return self;
 	};
 
@@ -79,6 +83,9 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	this.setColor = function(color){
 		self.color = color;
 		return self;
+	};
+	this.setColour = function(colour) {
+		return self.setColor(colour);
 	};
 
 	/**
@@ -142,7 +149,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 */
 	this.image = function(url, left, top, options, callback){
 		options = defaultOptions(options);
-		var image = new fabric.Image.fromURL(url, function(img){
+		new fabric.Image.fromURL(url, function(img){
 			options.left = left;
 			options.top = top;
 			img.setOptions(options);
@@ -343,7 +350,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @param {Number} yDelta Y ass pārvietojuma vektors.
 	 * @return {Simry}
 	 */
-	this.move = function(obj, xDelta, yDelta){
+	this.move = function(obj, xDelta, yDelta) {
 		obj.setOptions({
 			left: obj.getLeft() + xDelta,
 			top: obj.getTop() + yDelta
@@ -433,7 +440,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		options.hasControls = false;
 		options.hasBorders = false;
 		options.lockMovementX = true;
-		options.lockMovementY = true
+		options.lockMovementY = true;
 
 		return options;
 	};
