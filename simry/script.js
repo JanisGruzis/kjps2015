@@ -243,14 +243,12 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 	/**
 	 * Zīmēt trijstūri.
-	 * @param  {Number} x1      #1 punkta x koordināte.
-	 * @param  {Number} y1      #1 punkta y koordināte.
-	 * @param  {Number} x2      #2 punkta x koordināte.
-	 * @param  {Number} y2      #2 punkta y koordināte.
-	 * @param  {Number} x3      #3 punkta x koordināte.
-	 * @param  {Number} y3      #3 punkta y koordināte.
-	 * @param  {Object} options Figūras opcijas.
-	 * @return {fabric.Triangle} Figūras objekts.
+	 * @param  {Number} left    	Attālums no kreisās malas.
+	 * @param  {Number} top     	Attālums no augšas.
+	 * @param  {Number} width   	Trijstūra pamatnes platums.
+	 * @param  {Number} height  	Trijstūra augstums.
+	 * @param  {Object} options 	Figūras opcijas.
+	 * @return {fabric.Triangle}	Figūras objekts.
 	 */
 	this.triangle = function(left, top, width, height, options){
 		options = defaultOptions(options);
