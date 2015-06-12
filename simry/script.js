@@ -389,6 +389,21 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		});
 		return self;
 	};
+
+	/**
+	 * Objekta izvēles notikums
+	 *
+	 * @param {fabric.Object} object Elements, kuram gaidīt notikumu
+	 * @param {Function} callback FUnkcija, kura izsauc noteikumu
+	 * @returns {Simry}
+	 */
+	this.onSelect = function(object, callback) {
+		object.on("selected", function(event) {
+			callback(event);
+		});
+
+		return self;
+	};
 	
 	/**
 	 * Iedarbina galveno ciklu.
