@@ -445,7 +445,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 	/**
 	 * Izdzēst objektu.
-	 * @param {fabric.Object} Dzēšamais objekts.
+	 * @param {fabric.Object} obj Dzēšamais objekts.
 	 * @return {Simry}
 	 */
 	this.remove = function(obj){

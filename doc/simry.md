@@ -265,3 +265,15 @@ simry.onMoving(ship, function() {
     }
 });
 ```
+
+##Klikšķa notikums - `simry.onClick(object, function)`
+* _object_ - Objekts, kurš tiks pārbaudīts
+* _function_ - funkcija, kas tiks izsaukta
+
+Uzklikšķinot uz objekta `object`, izsauc funkcija `function`.
+###Piemērs
+```javascript
+simry.onClick(ship, function() {
+    console.log("Mmmmm... feels good, man.");
+});
+```
