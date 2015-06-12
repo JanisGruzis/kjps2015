@@ -7,6 +7,8 @@
 var Simry = function(canvasId, tickCallback, tickPeriod){
 
 	var self = this;
+	var clickEvents = [];
+	var nextObjectID = 0;
 
 	tickPeriod = !tickPeriod || parseInt(tickPeriod) <= 0 ?
 		1000 :
@@ -31,6 +33,14 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		self.start();
 		self.canvas = new fabric.Canvas(canvasId);
 		self.canvas.selectable = false;
+		self.canvas.on("mouse:down", function(options) {
+			if(options.target != undefined && clickEvents.hasOwnProperty(options.target.index)) {
+				for(var key in clickEvents[options.target.index]) {
+					if(!clickEvents[options.target.index].hasOwnProperty(key)) continue;
+					clickEvents[options.target.index][key].apply();
+				}
+			}
+		});
 		window.onresize();
 	};
 
@@ -257,7 +267,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		if (self.color){
 			options.fill = self.color;
 		}
-		
+
 		options.left = left;
 		options.top = top;
 		options.width = width;
@@ -316,7 +326,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 		return line;
 	};
-	
+
 	/**
 	 * Atļaut kustināt figūru.
 	 * @param {fabric.Object} obj Kustināmais objekts.
@@ -329,7 +339,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		});
 		return self;
 	};
-	
+
 	/**
 	 * Neļaut kustināt figūru.
 	 * @param {fabric.Object} obj Nekustināmais objekts.
@@ -342,7 +352,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		});
 		return self;
 	};
-	
+
 	/**
 	 * Pārvietot figūru.
 	 * @param {fabric.Object} obj Pārvietojamais objekts.
@@ -356,7 +366,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 			top: obj.getTop() + yDelta
 		});
 		obj.setCoords();
-		
+
 		return self;
 	};
 
@@ -387,24 +397,25 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 			obj.setCoords();
 			callback(e);
 		});
+
 		return self;
 	};
 
 	/**
-	 * Objekta izvēles notikums
-	 *
-	 * @param {fabric.Object} object Elements, kuram gaidīt notikumu
-	 * @param {Function} callback FUnkcija, kura izsauc noteikumu
-	 * @returns {Simry}
+	 * Objekta klikšķa notikums
+	 * @param  {fabric.Object} object Elements, kuram gaidīt notikumu.
+	 * @param  {Function} callback 	  Funkcija, kuru izsauc uz notikumu.
+	 * @return {Simry}
 	 */
-	this.onSelect = function(object, callback) {
-		object.on("selected", function(event) {
-			callback(event);
-		});
+	this.onClick = function(object, callback) {
+		if(!clickEvents.hasOwnProperty(object.index)) {
+			clickEvents[object.index] = [];
+		}
+		clickEvents[object.index].push(callback);
 
 		return self;
 	};
-	
+
 	/**
 	 * Iedarbina galveno ciklu.
 	 * @return {Simry}
@@ -431,7 +442,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 
 		return self;
 	};
-	
+
 	/**
 	 * Izdzēst objektu.
 	 * @param {fabric.Object} Dzēšamais objekts.
@@ -456,6 +467,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		options.hasBorders = false;
 		options.lockMovementX = true;
 		options.lockMovementY = true;
+		options.index = nextObjectID++;
 
 		return options;
 	};

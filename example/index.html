@@ -35,6 +35,7 @@
 
 				for (var i in aliens)
 				{
+					if(! aliens.hasOwnProperty(i)) continue;
 					var alien = aliens[i];
 					var vectorX = getMoveVector(alien.getLeft(), ship.getLeft());
 					var vectorY = getMoveVector(alien.getTop(), ship.getTop());
@@ -66,7 +67,8 @@
 			 * @return {Boolean}
 			 */
 			function isGameOver(c){
-				for (var i in aliens){
+				for (var i in aliens) {
+					if(!aliens.hasOwnProperty(i)) continue;
 					var alien = aliens[i];
 					if (c.intersects(alien, ship)){
 						return true;
