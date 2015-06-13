@@ -1,11 +1,11 @@
 /**
  * Vienkārša bibliotēka, lai palīdzētu programmēt html5 kanvas.
- * @param {String} canvasId 		HTML kanvas elementa identifikators.
- * @param {function} tickCallback 	Funkcija, kuru izsauc ik pēc tickPeriod milisekundēm.
- * @param {Number} tickPeriod     	Cik bieži izsaukt tickCallback funkciju.
+ * @param {String} canvasId        HTML kanvas elementa identifikators.
+ * @param {function} tickCallback    Funkcija, kuru izsauc ik pēc tickPeriod milisekundēm.
+ * @param {Number} tickPeriod        Cik bieži izsaukt tickCallback funkciju.
+ * @param canvasOptions
  */
 var Simry = function(canvasId, tickCallback, tickPeriod){
-
 	var self = this;
 	var clickEvents = [];
 	var nextObjectID = 0;
@@ -412,6 +412,19 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 			clickEvents[object.index] = [];
 		}
 		clickEvents[object.index].push(callback);
+
+		return self;
+	};
+
+	/**
+	 * Objekta iznīcināšana
+	 * @param object Elements, ko iznīcina
+	 * @returns {Simry}
+	 */
+	this.remove = function(object) {
+		if(!clickEvents.hasOwnProperty(object.index)) return self;
+		clickEvents.splice(clickEvents.indexOf(object.index), 1);
+		self.canvas.remove(object);
 
 		return self;
 	};
