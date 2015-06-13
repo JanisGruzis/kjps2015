@@ -3,10 +3,10 @@
  * @param {String} canvasId        HTML kanvas elementa identifikators.
  * @param {function} tickCallback    Funkcija, kuru izsauc ik pēc tickPeriod milisekundēm.
  * @param {Number} tickPeriod        Cik bieži izsaukt tickCallback funkciju.
- * @param canvasOptions
  */
 var Simry = function(canvasId, tickCallback, tickPeriod){
 	var self = this;
+	var clickEvents = [];
 	var clickEvents = [];
 	var nextObjectID = 0;
 
@@ -33,11 +33,18 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 		self.start();
 		self.canvas = new fabric.Canvas(canvasId);
 		self.canvas.selectable = false;
-		self.canvas.on("mouse:down", function(options) {
+		self.canvas.selection = false;
+		self.canvas.on("mouse:up", function(options) {
 			if(options.target != undefined && clickEvents.hasOwnProperty(options.target.index)) {
 				for(var key in clickEvents[options.target.index]) {
 					if(!clickEvents[options.target.index].hasOwnProperty(key)) continue;
 					clickEvents[options.target.index][key].apply();
+				}
+			} else {
+				for(var key in clickEvents) {
+					if(!clickEvents.hasOwnProperty(key)) continue;
+
+					clickEvents[key]();
 				}
 			}
 		});
@@ -180,7 +187,7 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @param  {fabric.Object} obj2 #2 figūra.
 	 * @return {Boolean}      		Vai figūra #1 pārklājas ar figūru #2.
 	 */
-	this.intersects = function(obj1, obj2){
+	this.intersects = function(obj1, obj2) {
 		return obj1.intersectsWithObject(obj2);
 	};
 
@@ -408,10 +415,10 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {Simry}
 	 */
 	this.onClick = function(object, callback) {
+		clickEvents[object.index].push(callback);
 		if(!clickEvents.hasOwnProperty(object.index)) {
 			clickEvents[object.index] = [];
 		}
-		clickEvents[object.index].push(callback);
 
 		return self;
 	};

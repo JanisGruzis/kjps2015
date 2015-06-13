@@ -112,7 +112,7 @@
 			(function(){
 				var c = new Simry('canvas', tick, 100);
 				c.setBackgroundImage('bg.png');
-				c.image('ship.png', c.getWidth() / 2 - 30, 46, null, function(img){
+				c.image('ship.png', c.getWidth() / 2 - 30, 46, null, function(img) {
 					ship = img;
 					c.enableMoving(ship);
 					c.onMoving(ship, function(){
