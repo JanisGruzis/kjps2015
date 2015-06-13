@@ -39,12 +39,6 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 					if(!clickEvents[options.target.index].hasOwnProperty(key)) continue;
 					clickEvents[options.target.index][key].apply();
 				}
-			} else {
-				for(var key in clickEvents) {
-					if(!clickEvents.hasOwnProperty(key)) continue;
-
-					clickEvents[key]();
-				}
 			}
 		});
 		window.onresize();
