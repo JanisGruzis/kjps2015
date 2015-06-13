@@ -7,7 +7,6 @@
 var Simry = function(canvasId, tickCallback, tickPeriod){
 	var self = this;
 	var clickEvents = [];
-	var clickEvents = [];
 	var nextObjectID = 0;
 
 	tickPeriod = !tickPeriod || parseInt(tickPeriod) <= 0 ?
@@ -415,10 +414,10 @@ var Simry = function(canvasId, tickCallback, tickPeriod){
 	 * @return {Simry}
 	 */
 	this.onClick = function(object, callback) {
-		clickEvents[object.index].push(callback);
 		if(!clickEvents.hasOwnProperty(object.index)) {
 			clickEvents[object.index] = [];
 		}
+		clickEvents[object.index].push(callback);
 
 		return self;
 	};
